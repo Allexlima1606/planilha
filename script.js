@@ -6,11 +6,9 @@ let grafico;
 
 
 
-// FORMATAR DINHEIRO
-
 function dinheiro(valor){
 
-    return Number(valor).toLocaleString("pt-BR",{
+    return Number(valor || 0).toLocaleString("pt-BR",{
         style:"currency",
         currency:"BRL"
     });
@@ -19,9 +17,7 @@ function dinheiro(valor){
 
 
 
-
-
-// SALVAR NO NAVEGADOR
+// SALVAR
 
 function salvarStorage(){
 
@@ -34,15 +30,12 @@ function salvarStorage(){
 
 
 
-
-
-// ADICIONAR OU EDITAR
+// SALVAR OU EDITAR
 
 function salvarDivida(){
 
-
     let credor =
-    document.getElementById("credor").value;
+    document.getElementById("credor").value.trim();
 
 
     let valor =
@@ -61,6 +54,10 @@ function salvarDivida(){
     Number(document.getElementById("valorParcela").value);
 
 
+    let categoria =
+    document.getElementById("categoria").value;
+
+
 
     if(!credor || !valor || !parcelas){
 
@@ -74,7 +71,7 @@ function salvarDivida(){
 
     let divida = {
 
-        id: Date.now(),
+        id: editando || Date.now(),
 
         credor,
 
@@ -84,11 +81,11 @@ function salvarDivida(){
 
         parcelasPagas,
 
-        valorParcela
+        valorParcela,
+
+        categoria
 
     };
-
-
 
 
 
@@ -99,18 +96,14 @@ function salvarDivida(){
             d=>d.id===editando
         );
 
-
         dividas[index]=divida;
-
 
         editando=null;
 
 
     }else{
 
-
         dividas.push(divida);
-
 
     }
 
@@ -118,20 +111,15 @@ function salvarDivida(){
 
     salvarStorage();
 
-
     limparFormulario();
 
-
     renderizar();
-
 
 }
 
 
 
-
-
-// LIMPAR CAMPOS
+// LIMPAR
 
 function limparFormulario(){
 
@@ -145,9 +133,7 @@ function limparFormulario(){
 
 
 
-
-
-// MOSTRAR DADOS
+// RENDER
 
 function renderizar(){
 
@@ -161,9 +147,7 @@ function renderizar(){
 
 
     let pesquisa =
-    document.getElementById("pesquisa").value
-    .toLowerCase();
-
+    document.getElementById("pesquisa").value.toLowerCase();
 
 
     let filtro =
@@ -172,9 +156,12 @@ function renderizar(){
 
 
     let total=0;
+
     let pago=0;
+
     let restante=0;
 
+    let quantidade=0;
 
 
 
@@ -188,12 +175,6 @@ function renderizar(){
 
 
 
-        let valorPago =
-        d.parcelasPagas *
-        d.valorParcela;
-
-
-
         let status =
         d.parcelasPagas >= d.parcelas
         ? "quitada"
@@ -201,8 +182,10 @@ function renderizar(){
 
 
 
-        if(filtro!="todos" &&
-           filtro!=status){
+        if(
+            filtro!="todos" &&
+            filtro!=status
+        ){
 
             return false;
 
@@ -217,36 +200,30 @@ function renderizar(){
     .forEach(d=>{
 
 
+        quantidade++;
+
+
         let valorPago =
         d.parcelasPagas *
         d.valorParcela;
 
 
 
-        let falta =
+        let saldo =
         d.valor - valorPago;
 
 
 
-        if(falta<0){
+        if(saldo < 0){
 
-            falta=0;
-
-        }
-
-
-
-        let porcentagem =
-        (valorPago / d.valor)*100;
-
-
-
-        if(porcentagem>100){
-
-            porcentagem=100;
+            saldo=0;
 
         }
 
+
+
+        let restam =
+        d.parcelas - d.parcelasPagas;
 
 
 
@@ -254,22 +231,37 @@ function renderizar(){
 
         pago += valorPago;
 
-        restante += falta;
+        restante += saldo;
 
+
+
+        let porcentagem =
+        (valorPago / d.valor) * 100;
+
+
+
+        if(porcentagem > 100){
+
+            porcentagem=100;
+
+        }
 
 
 
         let status =
         d.parcelasPagas >= d.parcelas
+
         ?
+
         `<span class="quitada">
         Quitada
         </span>`
+
         :
+
         `<span class="aberta">
         Em andamento
         </span>`;
-
 
 
 
@@ -281,46 +273,27 @@ function renderizar(){
 
 <td>${d.credor}</td>
 
+<td>${d.categoria || "Outros"}</td>
 
 <td>${dinheiro(d.valor)}</td>
 
-
 <td>${d.parcelas}</td>
-
 
 <td>${d.parcelasPagas}</td>
 
+<td>${restam}</td>
 
 <td>${dinheiro(d.valorParcela)}</td>
 
+<td>${dinheiro(saldo)}</td>
 
-
-<td>
-
-
-<div class="progresso">
-
-<div style="width:${porcentagem}%">
-
-</div>
-
-</div>
-
-
-${porcentagem.toFixed(0)}%
-
-</td>
-
-
+<td>-</td>
 
 <td>${status}</td>
 
-
-
 <td>
 
-<button 
-class="editar"
+<button class="editar"
 onclick="editar(${d.id})">
 
 ✏️
@@ -328,17 +301,14 @@ onclick="editar(${d.id})">
 </button>
 
 
-<button 
-class="excluir"
+<button class="excluir"
 onclick="excluir(${d.id})">
 
 🗑️
 
 </button>
 
-
 </td>
-
 
 </tr>
 
@@ -351,18 +321,23 @@ onclick="excluir(${d.id})">
 
 
 
-
-
     document.getElementById("total")
     .innerHTML=dinheiro(total);
+
 
 
     document.getElementById("pago")
     .innerHTML=dinheiro(pago);
 
 
+
     document.getElementById("restante")
     .innerHTML=dinheiro(restante);
+
+
+
+    document.getElementById("quantidade")
+    .innerHTML=quantidade;
 
 
 
@@ -372,8 +347,6 @@ onclick="excluir(${d.id})">
     );
 
 }
-
-
 
 
 
@@ -389,6 +362,10 @@ function editar(id){
 
 
 
+    if(!d) return;
+
+
+
     document.getElementById("credor").value=d.credor;
 
     document.getElementById("valor").value=d.valor;
@@ -398,6 +375,10 @@ function editar(id){
     document.getElementById("parcelasPagas").value=d.parcelasPagas;
 
     document.getElementById("valorParcela").value=d.valorParcela;
+
+
+    document.getElementById("categoria").value =
+    d.categoria || "Outros";
 
 
 
@@ -415,8 +396,6 @@ function editar(id){
 
 
 }
-
-
 
 
 
@@ -441,10 +420,7 @@ function excluir(id){
 
     }
 
-
 }
-
-
 
 
 
@@ -453,9 +429,15 @@ function excluir(id){
 function atualizarGrafico(pago,restante){
 
 
-    let ctx =
-    document
-    .getElementById("grafico");
+    let canvas =
+    document.getElementById("grafico");
+
+
+    if(!canvas){
+
+        return;
+
+    }
 
 
 
@@ -467,9 +449,8 @@ function atualizarGrafico(pago,restante){
 
 
 
-
     grafico =
-    new Chart(ctx,{
+    new Chart(canvas,{
 
         type:"doughnut",
 
@@ -486,7 +467,6 @@ function atualizarGrafico(pago,restante){
 
 
             datasets:[{
-
 
                 data:[
 
@@ -507,18 +487,7 @@ function atualizarGrafico(pago,restante){
 
             }]
 
-
-        },
-
-
-        options:{
-
-
-            responsive:true,
-
-
         }
-
 
     });
 
@@ -527,9 +496,7 @@ function atualizarGrafico(pago,restante){
 
 
 
-
-
-// MODO ESCURO
+// TEMA
 
 function alternarTema(){
 
@@ -553,25 +520,16 @@ function alternarTema(){
 
 
 
-
-
-// CARREGAR TEMA
-
 if(
-    localStorage.getItem("tema")
-    ==="true"
+localStorage.getItem("tema")==="true"
 ){
 
-    document.body
-    .classList
-    .add("dark");
+    document.body.classList.add("dark");
 
 }
 
 
 
-
-
-// INICIAR
+// INICIO
 
 renderizar();

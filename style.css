@@ -1,17 +1,46 @@
+/* ===========================
+   RESET
+=========================== */
+
 *{
+    margin:0;
+    padding:0;
     box-sizing:border-box;
-    font-family:'Segoe UI', Arial, sans-serif;
+    font-family:"Segoe UI",Arial,sans-serif;
 }
+
+
+:root{
+
+    --azul:#2563eb;
+    --verde:#16a34a;
+    --vermelho:#dc2626;
+    --laranja:#f59e0b;
+
+    --fundo:#f1f5f9;
+    --card:#ffffff;
+    --texto:#1e293b;
+    --borda:#dbe4ee;
+
+}
+
+
+body.dark{
+
+    --fundo:#0f172a;
+    --card:#1e293b;
+    --texto:#f8fafc;
+    --borda:#334155;
+
+}
+
 
 
 body{
 
-    margin:0;
-    padding:20px;
+    background:var(--fundo);
 
-    background:#f1f5f9;
-
-    color:#1e293b;
+    color:var(--texto);
 
     transition:.3s;
 
@@ -19,17 +48,20 @@ body{
 
 
 
-body.dark{
+.container{
 
-    background:#000103;
+    width:min(1500px,95%);
 
-    color:#e2e8f0;
+    margin:auto;
 
 }
 
 
 
-/* TOPO */
+/* ===========================
+   HEADER
+=========================== */
+
 
 header{
 
@@ -39,30 +71,42 @@ header{
 
     align-items:center;
 
-    max-width:1200px;
+    width:min(1500px,95%);
 
-    margin:auto;
-
-    margin-bottom:25px;
+    margin:20px auto;
 
 }
+
 
 
 header h1{
 
-    font-size:32px;
+    font-size:34px;
 
 }
 
 
 
-header button{
+.topo-botoes{
 
-    border:none;
+    display:flex;
 
-    background:#2563eb;
+    gap:10px;
+
+    align-items:center;
+
+}
+
+
+
+header button,
+.importar{
+
+    background:var(--azul);
 
     color:white;
+
+    border:none;
 
     padding:12px 18px;
 
@@ -70,99 +114,77 @@ header button{
 
     cursor:pointer;
 
-    font-size:20px;
+    font-weight:bold;
+
+    transition:.25s;
 
 }
 
 
 
+header button:hover,
+.importar:hover{
 
-
-/* CONTAINER */
-
-.container{
-
-    max-width:1200px;
-
-    margin:auto;
+    transform:translateY(-2px);
 
 }
 
 
 
+/* ===========================
+   FORMULÁRIO
+=========================== */
 
-
-/* FORMULARIO */
 
 .formulario{
-
-    background:white;
-
-    padding: 18px;
-
-    border-radius:15px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
     display:grid;
 
     grid-template-columns:repeat(auto-fit,minmax(180px,1fr));
 
-    gap:10px;
+    gap:12px;
 
-    margin-bottom:20px;
+    background:var(--card);
 
-}
+    padding:20px;
 
+    border-radius:15px;
 
+    margin-bottom:25px;
 
-.dark .formulario,
-
-.dark .card,
-
-.dark .grafico{
-
-    background:#1e293b;
+    box-shadow:0 5px 20px rgba(0,0,0,.08);
 
 }
 
 
 
+.formulario input,
+.formulario select,
+.controle input,
+.controle select{
 
-
-input,select{
 
     padding:12px;
 
     border-radius:8px;
 
-    border:1px solid #cbd5e1;
+    border:1px solid var(--borda);
 
-    outline:none;
+    background:var(--card);
 
-    font-size:15px;
-
-}
-
-
-input:focus,
-select:focus{
-
-    border-color:#2563eb;
+    color:var(--texto);
 
 }
 
 
 
+.formulario button{
 
-
-button{
-
-    border:none;
-
-    background:#16a34a;
+    background:var(--verde);
 
     color:white;
+
+    border:none;
 
     border-radius:8px;
 
@@ -170,11 +192,13 @@ button{
 
     font-weight:bold;
 
+    padding:12px;
+
 }
 
 
 
-button:hover{
+.formulario button:hover{
 
     opacity:.85;
 
@@ -182,9 +206,10 @@ button:hover{
 
 
 
+/* ===========================
+   CONTROLE
+=========================== */
 
-
-/* CONTROLE */
 
 .controle{
 
@@ -192,7 +217,7 @@ button:hover{
 
     gap:15px;
 
-    margin-bottom:20px;
+    margin-bottom:25px;
 
 }
 
@@ -206,9 +231,10 @@ button:hover{
 
 
 
+/* ===========================
+   CARDS
+=========================== */
 
-
-/* CARDS */
 
 .cards{
 
@@ -226,7 +252,7 @@ button:hover{
 
 .card{
 
-    background:white;
+    background:var(--card);
 
     padding:25px;
 
@@ -242,9 +268,9 @@ button:hover{
 
 .card h3{
 
-    margin-top:0;
-
     color:#64748b;
+
+    margin-bottom:10px;
 
 }
 
@@ -252,49 +278,24 @@ button:hover{
 
 .card strong{
 
-    font-size:25px;
+    color:var(--azul);
 
-    color:#2563eb;
-
-}
-
-
-
-
-
-/* GRAFICO */
-
-.grafico{
-
-    background:white;
-
-    padding:10px;
-
-    border-radius:10px;
-
-    margin-bottom:25px;
-
-    box-shadow:0 5px 20px rgba(0,0,0,.08);
-
-}
-
-h2{
-
-    margin-top:10px;
-
-    color:#64748b;
-
-    text-align:center;
+    font-size:28px;
 
 }
 
 
 
-/* TABELA */
+/* ===========================
+   TABELA
+=========================== */
+
 
 .tabela{
 
     overflow-x:auto;
+
+    border-radius:15px;
 
 }
 
@@ -304,21 +305,11 @@ table{
 
     width:100%;
 
+    min-width:1100px;
+
     border-collapse:collapse;
 
-    background:white;
-
-    border-radius:15px;
-
-    overflow:hidden;
-
-}
-
-
-
-.dark table{
-
-    background:#1e293b;
+    background:var(--card);
 
 }
 
@@ -326,11 +317,13 @@ table{
 
 th{
 
-    background:#2563eb;
+    background:var(--azul);
 
     color:white;
 
     padding:15px;
+
+    white-space:nowrap;
 
 }
 
@@ -342,57 +335,24 @@ td{
 
     text-align:center;
 
-    border-bottom:1px solid #e2e8f0;
+    border-bottom:1px solid var(--borda);
 
 }
 
 
 
-.dark td{
+tr:hover{
 
-    border-color:#334155;
-
-}
-
-
-
-
-
-/* BARRA DE PROGRESSO */
-
-.progresso{
-
-    width:150px;
-
-    height:15px;
-
-    background:#cbd5e1;
-
-    border-radius:20px;
-
-    overflow:hidden;
-
-    margin:auto;
+    background:rgba(37,99,235,.05);
 
 }
 
 
 
-.progresso div{
+/* ===========================
+   STATUS
+=========================== */
 
-    height:100%;
-
-    background:#22c55e;
-
-    transition:.5s;
-
-}
-
-
-
-
-
-/* STATUS */
 
 .quitada{
 
@@ -414,17 +374,69 @@ td{
 
 
 
+/* ===========================
+   PROGRESSO
+=========================== */
 
 
-/* BOTÕES DA TABELA */
+.progresso{
+
+    width:140px;
+
+    height:14px;
+
+    background:#dbe4ee;
+
+    border-radius:30px;
+
+    overflow:hidden;
+
+    margin:auto;
+
+}
+
+
+
+.progresso div{
+
+    height:100%;
+
+    background:#22c55e;
+
+    transition:.4s;
+
+}
+
+
+
+/* ===========================
+   BOTÕES
+=========================== */
+
+
+.editar,
+.excluir,
+.pagar{
+
+    color:white;
+
+    border:none;
+
+    border-radius:8px;
+
+    padding:8px 12px;
+
+    cursor:pointer;
+
+    margin:2px;
+
+}
+
+
 
 .editar{
 
     background:#2563eb;
-
-    padding:8px;
-
-    margin:3px;
 
 }
 
@@ -434,79 +446,167 @@ td{
 
     background:#dc2626;
 
-    padding:8px;
+}
 
-    margin:3px;
+
+
+.pagar{
+
+    background:#16a34a;
 
 }
 
 
 
+.editar:hover,
+.excluir:hover,
+.pagar:hover{
 
-
-/* MODO ESCURO */
-
-.dark input,
-.dark select{
-
-    background:#334155;
-
-    color:white;
-
-    border-color:#475569;
+    opacity:.85;
 
 }
 
 
 
-.dark .card h3{
+/* ===========================
+   ANIMAÇÃO
+=========================== */
 
-    color:#cbd5e1;
+
+.card,
+.formulario,
+table{
+
+    animation:aparecer .4s ease;
 
 }
 
 
 
+@keyframes aparecer{
+
+    from{
+
+        opacity:0;
+
+        transform:translateY(20px);
+
+    }
 
 
-/* CELULAR */
+    to{
+
+        opacity:1;
+
+        transform:translateY(0);
+
+    }
+
+}
+
+
+
+/* ===========================
+   SCROLL
+=========================== */
+
+
+::-webkit-scrollbar{
+
+    width:10px;
+
+    height:10px;
+
+}
+
+
+
+::-webkit-scrollbar-thumb{
+
+    background:#2563eb;
+
+    border-radius:20px;
+
+}
+
+
+
+/* ===========================
+   RESPONSIVO
+=========================== */
+
+
+@media(max-width:900px){
+
+
+    .formulario{
+
+        grid-template-columns:1fr;
+
+    }
+
+
+}
+
+
 
 @media(max-width:700px){
 
 
-body{
+    header{
 
-    padding:10px;
+        flex-direction:column;
 
-}
+        gap:15px;
 
-
-header h1{
-
-    font-size:22px;
-
-}
+    }
 
 
-.controle{
 
-    flex-direction:column;
+    header h1{
 
-}
+        font-size:26px;
 
+        text-align:center;
 
-table{
-
-    font-size:13px;
-
-}
+    }
 
 
-.card strong{
 
-    font-size:20px;
+    .topo-botoes{
 
-}
+        flex-wrap:wrap;
+
+        justify-content:center;
+
+    }
+
+
+
+    .controle{
+
+        flex-direction:column;
+
+    }
+
+
+
+    th,
+    td{
+
+        padding:8px;
+
+        font-size:13px;
+
+    }
+
+
+
+    .progresso{
+
+        width:90px;
+
+    }
 
 
 }
