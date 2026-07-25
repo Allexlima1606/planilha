@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Controle de Dívidas</title>
+
+<link rel="stylesheet" href="style.css">
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>💰 Controle de Dívidas</h1>
+
+<button onclick="alternarTema()">
+🌙
+</button>
+
+</header>
+
+
+
+<div class="container">
+
+
+<section class="formulario">
+
+
+
+
+
+<input 
+id="credor"
+placeholder="Credor"
+>
+
+
+<input 
+id="valor"
+type="number"
+placeholder="Valor Total"
+>
+
+
+<input 
+id="parcelas"
+type="number"
+placeholder="Total de Parcelas"
+>
+
+
+<input 
+id="parcelasPagas"
+type="number"
+placeholder="Parcelas Pagas"
+>
+
+
+<input 
+id="valorParcela"
+type="number"
+placeholder="Valor da Parcela"
+>
+
+
+
+<button onclick="salvarDivida()">
+
+Adicionar
+
+</button>
+
+
+</section>
+
+
+
+
+
+<section class="controle">
+
+
+<input 
+id="pesquisa"
+placeholder="🔍 Pesquisar credor"
+oninput="renderizar()"
+>
+
+
+<select id="filtro" onchange="renderizar()">
+
+<option value="todos">
+Todas
+</option>
+
+<option value="aberta">
+Em andamento
+</option>
+
+<option value="quitada">
+Quitadas
+</option>
+
+</select>
+
+
+</section>
+
+
+
+
+
+<section class="cards">
+
+
+<div class="card">
+
+<h3>
+Total Dívidas
+</h3>
+
+<strong id="total">
+R$ 0,00
+</strong>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Total Pago
+</h3>
+
+<strong id="pago">
+R$ 0,00
+</strong>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>
+Falta Pagar
+</h3>
+
+<strong id="restante">
+R$ 0,00
+</strong>
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<section class="grafico">
+
+<h2>
+Resumo
+</h2>
+
+
+<canvas id="grafico"></canvas>
+
+
+</section>
+
+
+
+
+
+
+
+<section class="tabela">
+
+
+<table>
+
+
+<thead>
+
+<tr>
+
+<th>
+Credor
+</th>
+
+<th>
+Valor
+</th>
+
+<th>
+Parcelas
+</th>
+
+<th>
+Pagas
+</th>
+
+<th>
+Parcela
+</th>
+
+<th>
+Progresso
+</th>
+
+<th>
+Status
+</th>
+
+<th>
+Ações
+</th>
+
+</tr>
+
+</thead>
+
+
+
+<tbody id="lista">
+
+</tbody>
+
+
+</table>
+
+
+</section>
+
+
+
+</div>
+
+
+
+<script src="script.js"></script>
+
+
+</body>
+
+</html>
