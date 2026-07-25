@@ -27,7 +27,7 @@
 
 body.dark{
 
-    --fundo:#0f172a;
+    --fundo:#000000;
     --card:#1e293b;
     --texto:#f8fafc;
     --borda:#334155;
@@ -50,7 +50,7 @@ body{
 
 .container{
 
-    width:min(1500px,95%);
+    width:min(1100px,95%);
 
     margin:auto;
 
@@ -71,7 +71,7 @@ header{
 
     align-items:center;
 
-    width:min(1500px,95%);
+    width:min(1100px,95%);
 
     margin:20px auto;
 
