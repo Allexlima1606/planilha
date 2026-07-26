@@ -187,7 +187,7 @@ Possíveis evoluções:
 
 # 👨‍💻 Autor
 
-Projeto desenvolvido para controle financeiro pessoal.
+Alex Correa de lima
 
 ---
 
