@@ -2,146 +2,358 @@
 <html lang="pt-BR">
 
 <head>
+
     <meta charset="UTF-8">
+
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>Controle Financeiro PRO</title>
+
 
     <link rel="stylesheet" href="style.css">
 
+
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
 
+
 <body>
+
 
 <header>
 
     <h1>💰 Controle Financeiro PRO</h1>
 
+
     <div class="topo-botoes">
 
-        <button onclick="alternarTema()">🌙</button>
 
-        <button onclick="exportarExcel()">📄 Excel</button>
+        <button onclick="alternarTema()">
+            🌙
+        </button>
 
-        <button onclick="backupJSON()">💾 Backup</button>
+
+        <button onclick="exportarExcel()">
+            📄 Excel
+        </button>
+
+
+        <button onclick="backupJSON()">
+            💾 Backup
+        </button>
+
 
         <label class="importar">
+
             📂 Restaurar
-            <input type="file" id="arquivoBackup" accept=".json" onchange="restaurarBackup(event)" hidden>
+
+            <input 
+                type="file"
+                id="arquivoBackup"
+                accept=".json"
+                onchange="restaurarBackup(event)"
+                hidden
+            >
+
         </label>
+
 
     </div>
 
+
 </header>
+
+
 
 <div class="container">
 
-    <section class="formulario">
-
-        <input id="credor" placeholder="Credor">
-
-        <input id="valor" type="number" placeholder="Valor Total">
-
-        <input id="parcelas" type="number" placeholder="Total Parcelas">
-
-        <input id="parcelasPagas" type="number" placeholder="Parcelas Pagas">
-
-        <input id="valorParcela" type="number" placeholder="Valor da Parcela">
-
-        <select id="categoria">
-
-            <option>Cartão</option>
-            <option>Financiamento</option>
-            <option>Empréstimo</option>
-            <option>Consórcio</option>
-            <option>Outros</option>
-
-        </select>
-
-        <button onclick="salvarDivida()">
-            Salvar
-        </button>
-
-    </section>
 
 
-    <section class="controle">
-
-        <input
-            id="pesquisa"
-            placeholder="🔍 Pesquisar credor"
-            oninput="renderizar()"
-        >
-
-        <select id="filtro" onchange="renderizar()">
-
-            <option value="todos">Todas</option>
-            <option value="aberta">Em andamento</option>
-            <option value="quitada">Quitadas</option>
-
-        </select>
-
-    </section>
+<section class="formulario">
 
 
-    <section class="cards">
-
-        <div class="card">
-            <h3>Total</h3>
-            <strong id="total">R$ 0,00</strong>
-        </div>
-
-        <div class="card">
-            <h3>Pago</h3>
-            <strong id="pago">R$ 0,00</strong>
-        </div>
-
-        <div class="card">
-            <h3>Restante</h3>
-            <strong id="restante">R$ 0,00</strong>
-        </div>
-
-        <div class="card">
-            <h3>Dívidas</h3>
-            <strong id="quantidade">0</strong>
-        </div>
-
-    </section>
+<input 
+id="credor"
+placeholder="Credor"
+>
 
 
-    <section class="tabela">
 
-        <table>
+<input 
+id="valor"
+type="number"
+placeholder="Valor Total"
+>
 
-            <thead>
 
-                <tr>
 
-                    <th>Credor</th>
-                    <th>Categoria</th>
-                    <th>Total</th>
-                    <th>Parcelas</th>
-                    <th>Pagas</th>
-                    <th>Restam</th>
-                    <th>Parcela</th>
-                    <th>Saldo</th>
+<input 
+id="parcelas"
+type="number"
+placeholder="Total Parcelas"
+>
 
-                </tr>
 
-            </thead>
 
-            <tbody id="lista"></tbody>
+<input 
+id="parcelasPagas"
+type="number"
+placeholder="Parcelas Pagas"
+>
 
-        </table>
 
-    </section>
+
+<input 
+id="valorParcela"
+type="number"
+placeholder="Valor da Parcela"
+>
+
+
+
+<select id="categoria">
+
+
+<option>Cartão</option>
+
+<option>Financiamento</option>
+
+<option>Empréstimo</option>
+
+<option>Consórcio</option>
+
+<option>Outros</option>
+
+
+</select>
+
+
+
+<button onclick="salvarDivida()">
+
+Salvar
+
+</button>
+
+
+
+</section>
+
+
+
+
+
+<section class="controle">
+
+
+<input
+
+id="pesquisa"
+
+placeholder="🔍 Pesquisar credor"
+
+oninput="renderizar()"
+
+>
+
+
+
+<select 
+id="filtro"
+onchange="renderizar()"
+>
+
+
+<option value="todos">
+Todas
+</option>
+
+
+<option value="aberta">
+Em andamento
+</option>
+
+
+<option value="quitada">
+Quitadas
+</option>
+
+
+
+</select>
+
+
+
+</section>
+
+
+
+
+
+
+
+<section class="cards">
+
+
+<div class="card">
+
+<h3>Total</h3>
+
+<strong id="total">
+R$ 0,00
+</strong>
 
 </div>
 
+
+
+<div class="card">
+
+<h3>Pago</h3>
+
+<strong id="pago">
+R$ 0,00
+</strong>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Restante</h3>
+
+<strong id="restante">
+R$ 0,00
+</strong>
+
+</div>
+
+
+
+<div class="card">
+
+<h3>Dívidas</h3>
+
+<strong id="quantidade">
+0
+</strong>
+
+</div>
+
+
+
+</section>
+
+
+
+
+
+<section class="tabela">
+
+
+<table>
+
+
+<thead>
+
+
+<tr>
+
+
+<th>
+Credor
+</th>
+
+
+<th>
+Categoria
+</th>
+
+
+<th>
+Total
+</th>
+
+
+<th>
+Parcelas
+</th>
+
+
+<th>
+Pagas
+</th>
+
+
+<th>
+Restam
+</th>
+
+
+<th>
+Parcela
+</th>
+
+
+<th>
+Saldo
+</th>
+
+
+<th>
+Vencimento
+</th>
+
+
+<th>
+Status
+</th>
+
+
+<th>
+Ações
+</th>
+
+
+
+</tr>
+
+
+</thead>
+
+
+
+<tbody id="lista">
+
+
+</tbody>
+
+
+
+</table>
+
+
+
+</section>
+
+
+
+</div>
+
+
+
+
+
 <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+
 
 <script src="script.js"></script>
 
+
+
 </body>
+
 
 </html>

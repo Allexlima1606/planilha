@@ -6,24 +6,32 @@ let grafico;
 
 
 
+// FORMATA MOEDA
+
 function dinheiro(valor){
 
     return Number(valor || 0).toLocaleString("pt-BR",{
+
         style:"currency",
+
         currency:"BRL"
+
     });
 
 }
 
 
 
-// SALVAR
+// SALVAR LOCALSTORAGE
 
 function salvarStorage(){
 
     localStorage.setItem(
+
         "dividas",
+
         JSON.stringify(dividas)
+
     );
 
 }
@@ -33,6 +41,7 @@ function salvarStorage(){
 // SALVAR OU EDITAR
 
 function salvarDivida(){
+
 
     let credor =
     document.getElementById("credor").value.trim();
@@ -91,19 +100,25 @@ function salvarDivida(){
 
     if(editando){
 
+
         let index =
         dividas.findIndex(
             d=>d.id===editando
         );
 
+
         dividas[index]=divida;
+
 
         editando=null;
 
 
+
     }else{
 
+
         dividas.push(divida);
+
 
     }
 
@@ -111,29 +126,36 @@ function salvarDivida(){
 
     salvarStorage();
 
+
     limparFormulario();
 
+
     renderizar();
+
 
 }
 
 
 
-// LIMPAR
+// LIMPAR FORMULARIO
 
 function limparFormulario(){
 
     document.getElementById("credor").value="";
+
     document.getElementById("valor").value="";
+
     document.getElementById("parcelas").value="";
+
     document.getElementById("parcelasPagas").value="";
+
     document.getElementById("valorParcela").value="";
 
 }
 
 
 
-// RENDER
+// MOSTRAR DADOS
 
 function renderizar(){
 
@@ -147,7 +169,10 @@ function renderizar(){
 
 
     let pesquisa =
-    document.getElementById("pesquisa").value.toLowerCase();
+    document.getElementById("pesquisa")
+    .value
+    .toLowerCase();
+
 
 
     let filtro =
@@ -166,19 +191,23 @@ function renderizar(){
 
 
     dividas
+
     .filter(d=>{
 
 
         let nome =
-        d.credor.toLowerCase()
+        d.credor
+        .toLowerCase()
         .includes(pesquisa);
 
 
 
         let status =
         d.parcelasPagas >= d.parcelas
-        ? "quitada"
-        : "aberta";
+        ?
+        "quitada"
+        :
+        "aberta";
 
 
 
@@ -197,10 +226,12 @@ function renderizar(){
 
     })
 
+
     .forEach(d=>{
 
 
         quantidade++;
+
 
 
         let valorPago =
@@ -223,7 +254,8 @@ function renderizar(){
 
 
         let restam =
-        d.parcelas - d.parcelasPagas;
+        d.parcelas -
+        d.parcelasPagas;
 
 
 
@@ -249,6 +281,7 @@ function renderizar(){
 
 
         let status =
+
         d.parcelasPagas >= d.parcelas
 
         ?
@@ -293,7 +326,9 @@ function renderizar(){
 
 <td>
 
-<button class="editar"
+
+<button 
+class="editar"
 onclick="editar(${d.id})">
 
 ✏️
@@ -301,14 +336,17 @@ onclick="editar(${d.id})">
 </button>
 
 
-<button class="excluir"
+<button 
+class="excluir"
 onclick="excluir(${d.id})">
 
 🗑️
 
 </button>
 
+
 </td>
+
 
 </tr>
 
@@ -346,6 +384,7 @@ onclick="excluir(${d.id})">
         restante
     );
 
+
 }
 
 
@@ -359,7 +398,6 @@ function editar(id){
     dividas.find(
         x=>x.id===id
     );
-
 
 
     if(!d) return;
@@ -376,8 +414,7 @@ function editar(id){
 
     document.getElementById("valorParcela").value=d.valorParcela;
 
-
-    document.getElementById("categoria").value =
+    document.getElementById("categoria").value=
     d.categoria || "Outros";
 
 
@@ -420,6 +457,7 @@ function excluir(id){
 
     }
 
+
 }
 
 
@@ -431,6 +469,7 @@ function atualizarGrafico(pago,restante){
 
     let canvas =
     document.getElementById("grafico");
+
 
 
     if(!canvas){
@@ -456,7 +495,6 @@ function atualizarGrafico(pago,restante){
 
         data:{
 
-
             labels:[
 
                 "Pago",
@@ -479,15 +517,16 @@ function atualizarGrafico(pago,restante){
 
                 backgroundColor:[
 
-                    "#22c55e",
+                    "#16a34a",
 
-                    "#ef4444"
+                    "#dc2626"
 
                 ]
 
             }]
 
         }
+
 
     });
 
@@ -496,14 +535,206 @@ function atualizarGrafico(pago,restante){
 
 
 
-// TEMA
+// EXPORTAR EXCEL
+
+function exportarExcel(){
+
+
+    if(dividas.length===0){
+
+        alert("Não existem dados para exportar");
+
+        return;
+
+    }
+
+
+
+    let dados =
+    dividas.map(d=>({
+
+
+        Credor:d.credor,
+
+        Categoria:d.categoria,
+
+        Total:d.valor,
+
+        Parcelas:d.parcelas,
+
+        Pagas:d.parcelasPagas,
+
+        Parcela:d.valorParcela,
+
+        Saldo:
+        d.valor -
+        (d.parcelasPagas*d.valorParcela)
+
+
+    }));
+
+
+
+    let planilha =
+    XLSX.utils.json_to_sheet(dados);
+
+
+
+    let livro =
+    XLSX.utils.book_new();
+
+
+
+    XLSX.utils.book_append_sheet(
+
+        livro,
+
+        planilha,
+
+        "Controle"
+
+    );
+
+
+
+    XLSX.writeFile(
+
+        livro,
+
+        "Controle_Financeiro.xlsx"
+
+    );
+
+
+}
+
+
+
+// BACKUP JSON
+
+function backupJSON(){
+
+
+    let arquivo =
+    JSON.stringify(
+        dividas,
+        null,
+        2
+    );
+
+
+
+    let blob =
+    new Blob(
+
+        [arquivo],
+
+        {
+            type:"application/json"
+        }
+
+    );
+
+
+
+    let link =
+    document.createElement("a");
+
+
+
+    link.href =
+    URL.createObjectURL(blob);
+
+
+
+    link.download =
+    "backup_financeiro.json";
+
+
+
+    link.click();
+
+
+}
+
+
+
+// RESTAURAR BACKUP
+
+function restaurarBackup(event){
+
+
+    let arquivo =
+    event.target.files[0];
+
+
+
+    if(!arquivo){
+
+        return;
+
+    }
+
+
+
+    let leitor =
+    new FileReader();
+
+
+
+    leitor.onload=function(e){
+
+
+        try{
+
+
+            dividas =
+            JSON.parse(
+                e.target.result
+            );
+
+
+
+            salvarStorage();
+
+
+            renderizar();
+
+
+
+            alert(
+                "Backup restaurado com sucesso"
+            );
+
+
+        }catch{
+
+
+            alert(
+                "Arquivo inválido"
+            );
+
+
+        }
+
+
+    };
+
+
+
+    leitor.readAsText(arquivo);
+
+
+}
+
+
+
+// TEMA ESCURO
 
 function alternarTema(){
 
 
-    document.body
-    .classList
-    .toggle("dark");
+    document.body.classList.toggle("dark");
 
 
 
@@ -530,6 +761,6 @@ localStorage.getItem("tema")==="true"
 
 
 
-// INICIO
+// INICIAR
 
 renderizar();
