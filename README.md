@@ -68,3 +68,129 @@ O projeto permite cadastrar dívidas, acompanhar pagamentos, visualizar valores 
 
 # 📂 Estrutura do projeto
 
+Controle-Financeiro-PRO/
+
+│
+├── index.html
+│
+├── style.css
+│
+├── script.js
+│
+└── README.md
+
+
+---
+
+# ⚙️ Como executar
+
+1. Baixe ou clone o projeto:
+
+git clone SEU_LINK_DO_REPOSITORIO
+
+
+4. O sistema abrirá diretamente no navegador.
+
+Não é necessário instalar servidor ou banco de dados.
+
+---
+
+# 💾 Armazenamento dos dados
+
+Os dados são armazenados utilizando:
+
+LocalStorage
+
+
+do próprio navegador.
+
+Isso significa que:
+
+- Os dados permanecem salvos no computador utilizado.
+- Limpar os dados do navegador pode apagar as informações.
+- Recomenda-se utilizar a função de backup regularmente.
+
+---
+
+# 📄 Exportar Excel
+
+A função **Excel** permite gerar um arquivo:
+
+Controle_Financeiro.xlsx
+
+
+com os dados cadastrados.
+
+---
+
+# 💾 Backup
+
+A função **Backup** gera um arquivo:
+
+backup_financeiro.json
+
+
+Esse arquivo pode ser utilizado para restaurar os dados posteriormente.
+
+---
+
+# 📂 Restaurar Backup
+
+Para recuperar os dados:
+
+1. Clique em:
+
+📂 Restaurar
+
+
+2. Selecione o arquivo:
+
+backup_financeiro.json
+
+
+3. Os registros serão carregados novamente.
+
+---
+
+# 📱 Responsividade
+
+O sistema foi desenvolvido para funcionar em:
+
+- Computadores
+- Tablets
+- Smartphones
+
+---
+
+# 🔒 Privacidade
+
+O projeto funciona totalmente no navegador.
+
+Nenhuma informação é enviada para servidores externos.
+
+Os dados permanecem armazenados localmente no dispositivo.
+
+---
+
+# 📌 Melhorias futuras
+
+Possíveis evoluções:
+
+- Cadastro de vencimentos reais
+- Alertas de parcelas próximas
+- Gráficos financeiros
+- Login de usuários
+- Banco de dados online
+- Aplicativo mobile
+
+---
+
+# 👨‍💻 Autor
+
+Projeto desenvolvido para controle financeiro pessoal.
+
+---
+
+# 📜 Licença
+
+Este projeto pode ser utilizado e modificado livremente para fins pessoais e educacionais.
