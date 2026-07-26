@@ -15,7 +15,7 @@
     --fundo:#f1f5f9;
     --card:#ffffff;
     --texto:#1e293b;
-    --borda:#dbe4ee;
+    --borda:#adbbcc;
 
 }
 
@@ -249,6 +249,8 @@ header button:hover,
 
     box-shadow:0 5px 20px rgba(0,0,0,.08);
 
+    border: 2px solid var(--borda);
+
 }
 
 
@@ -265,9 +267,10 @@ header button:hover,
 
 .card strong{
 
-    color:var(--azul);
+    
 
     font-size:28px;
+  
 
 }
 
